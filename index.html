@@ -1,13 +1,323 @@
-
-
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 
 <head>
 
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>GKH PRO EDITOR</title>
+
 <style>
 
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+background:#000814;
+font-family:Arial,sans-serif;
+color:white;
+height:100vh;
+display:flex;
+flex-direction:column;
+overflow:hidden;
+}
+
+header{
+background:#001d3d;
+padding:12px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+border-bottom:2px solid #00ff88;
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.logo img{
+width:60px;
+height:60px;
+border-radius:50%;
+border:3px solid #00ff88;
+object-fit:cover;
+box-shadow:0 0 20px #00ff88;
+}
+
+.logo-text h1{
+font-size:22px;
+color:#00ff88;
+}
+
+.logo-text p{
+font-size:13px;
+color:#94a3b8;
+margin-top:5px;
+}
+
+.top-buttons{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.top-buttons button{
+padding:10px 15px;
+border:none;
+border-radius:10px;
+background:#00ff88;
+color:black;
+font-weight:bold;
+cursor:pointer;
+}
+
+.main{
+flex:1;
+display:flex;
+overflow:hidden;
+}
+
+.sidebar{
+width:230px;
+background:#001d3d;
+padding:10px;
+overflow:auto;
+border-right:1px solid #0f172a;
+}
+
+.sidebar h2{
+color:#00ff88;
+font-size:18px;
+margin-bottom:10px;
+}
+
+.file{
+background:#0f172a;
+padding:12px;
+margin-bottom:10px;
+border-radius:10px;
+font-size:15px;
+border:2px solid transparent;
+}
+
+.file.active{
+border:2px solid #00ff88;
+}
+
+.editor{
+flex:1;
+display:flex;
+flex-direction:column;
+}
+
+.tabs{
+display:flex;
+background:#001d3d;
+}
+
+.tab{
+padding:15px 20px;
+cursor:pointer;
+border-right:1px solid #0f172a;
+}
+
+.tab.active{
+background:#00ff88;
+color:black;
+font-weight:bold;
+}
+
+.editor-box{
+flex:1;
+display:flex;
+}
+
+textarea{
+flex:1;
+background:#000814;
+color:#ffffff;
+padding:20px;
+border:none;
+outline:none;
+resize:none;
+font-size:15px;
+font-family:monospace;
+line-height:1.5;
+}
+
+.preview{
+width:40%;
+background:white;
+border-left:2px solid #00ff88;
+}
+
+iframe{
+width:100%;
+height:100%;
+border:none;
+}
+
+footer{
+background:#001d3d;
+padding:12px;
+text-align:center;
+}
+
+footer a{
+color:#00ff88;
+font-size:22px;
+font-weight:bold;
+text-decoration:none;
+}
+
+@media(max-width:900px){
+
+.main{
+flex-direction:column;
+overflow:auto;
+}
+
+.sidebar{
+width:100%;
+display:flex;
+gap:10px;
+}
+
+.sidebar h2{
+display:none;
+}
+
+.file{
+min-width:150px;
+}
+
+.editor-box{
+flex-direction:column;
+}
+
+.preview{
+width:100%;
+height:300px;
+border-left:none;
+border-top:2px solid #00ff88;
+}
+
+textarea{
+height:300px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+
+<img src="profile.png">
+
+<div class="logo-text">
+
+<h1>GKH PRO EDITOR</h1>
+
+<p>Professional Coding Website</p>
+
+</div>
+
+</div>
+
+<div class="top-buttons">
+
+<button onclick="runCode()">
+RUN
+</button>
+
+<button onclick="saveCode()">
+SAVE
+</button>
+
+<button onclick="downloadCode()">
+DOWNLOAD
+</button>
+
+<button onclick="newProject()">
+NEW
+</button>
+
+</div>
+
+</header>
+
+<div class="main">
+
+<div class="sidebar">
+
+<h2>FILES</h2>
+
+<div class="file active">
+index.html
+</div>
+
+<div class="file">
+style.css
+</div>
+
+<div class="file">
+script.js
+</div>
+
+<div class="file">
+profile.png
+</div>
+
+</div>
+
+<div class="editor">
+
+<div class="tabs">
+
+<div class="tab active">
+HTML
+</div>
+
+<div class="tab">
+CSS
+</div>
+
+<div class="tab">
+JAVASCRIPT
+</div>
+
+</div>
+
+<div class="editor-box">
+
+<textarea id="htmlCode">
+
+<h1>Welcome To GKH</h1>
+
+<p>Professional Coding Website</p>
+
+<button id="clickBtn">
+Click Me
+</button>
+
+</textarea>
+
+<textarea id="cssCode"
+style="display:none;">
 
 body{
 background:black;
@@ -18,15 +328,197 @@ font-family:Arial;
 }
 
 button{
-padding:12px 20px;
+padding:14px 24px;
 background:#00ff88;
 border:none;
-border-radius:8px;
-font-size:16px;
+border-radius:10px;
+font-size:18px;
 cursor:pointer;
 }
 
+</textarea>
 
+<textarea id="jsCode"
+style="display:none;">
+
+document
+.getElementById("clickBtn")
+.addEventListener("click",function(){
+
+document.body.style.background =
+"#001f3f";
+
+document.querySelector("h1")
+.innerHTML =
+"GKH WEBSITE SUCCESSFULLY WORKING";
+
+document.querySelector("p")
+.innerHTML =
+"Your Website Is Live Now";
+
+this.innerHTML = "SUCCESS";
+
+this.style.background = "lime";
+
+this.style.color = "black";
+
+});
+
+</textarea>
+
+<div class="preview">
+
+<iframe id="output"></iframe>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<footer>
+
+<a href="https://www.facebook.com/share/1CoirCyei8/"
+target="_blank">
+
+By Habibur Rahman
+
+</a>
+
+</footer>
+
+<script>
+
+const tabs =
+document.querySelectorAll(".tab");
+
+const editors = [
+
+document.getElementById("htmlCode"),
+
+document.getElementById("cssCode"),
+
+document.getElementById("jsCode")
+
+];
+
+tabs.forEach((tab,index)=>{
+
+tab.onclick = function(){
+
+tabs.forEach(t=>
+t.classList.remove("active"));
+
+tab.classList.add("active");
+
+editors.forEach(e=>
+e.style.display="none");
+
+editors[index].style.display="block";
+
+};
+
+});
+
+function runCode(){
+
+let html =
+document.getElementById("htmlCode").value;
+
+let css =
+document.getElementById("cssCode").value;
+
+let js =
+document.getElementById("jsCode").value;
+
+let output = `
+
+<style>
+
+${css}
+
+</style>
+
+${html}
+
+<script>
+
+${js}
+
+<\/script>
+
+`;
+
+document
+.getElementById("output")
+.srcdoc = output;
+
+}
+
+function saveCode(){
+
+localStorage.setItem(
+"html",
+document.getElementById("htmlCode").value
+);
+
+localStorage.setItem(
+"css",
+document.getElementById("cssCode").value
+);
+
+localStorage.setItem(
+"js",
+document.getElementById("jsCode").value
+);
+
+alert("Project Saved");
+
+}
+
+function loadCode(){
+
+if(localStorage.getItem("html")){
+
+document.getElementById("htmlCode").value =
+localStorage.getItem("html");
+
+document.getElementById("cssCode").value =
+localStorage.getItem("css");
+
+document.getElementById("jsCode").value =
+localStorage.getItem("js");
+
+}
+
+runCode();
+
+}
+
+function downloadCode(){
+
+let html =
+document.getElementById("htmlCode").value;
+
+let css =
+document.getElementById("cssCode").value;
+
+let js =
+document.getElementById("jsCode").value;
+
+let fullCode = `
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<style>
+
+${css}
 
 </style>
 
@@ -34,30 +526,53 @@ cursor:pointer;
 
 <body>
 
-
-<h1>Welcome To GKH</h1>
-
-<p>Professional Coding Website</p>
-
-<button>Click Me</button>
-
-
+${html}
 
 <script>
 
+${js}
 
-document.querySelector("button")
-.addEventListener("click",function(){
-
-alert("Welcome To GKH PRO EDITOR");
-
-});
-
-
-
-</script>
+<\/script>
 
 </body>
 
 </html>
 
+`;
+
+let blob = new Blob(
+[fullCode],
+{type:"text/html"}
+);
+
+let a =
+document.createElement("a");
+
+a.href =
+URL.createObjectURL(blob);
+
+a.download =
+"index.html";
+
+a.click();
+
+}
+
+function newProject(){
+
+document.getElementById("htmlCode").value="";
+document.getElementById("cssCode").value="";
+document.getElementById("jsCode").value="";
+
+document.getElementById("output").srcdoc="";
+
+}
+
+runCode();
+
+loadCode();
+
+</script>
+
+</body>
+</html>
